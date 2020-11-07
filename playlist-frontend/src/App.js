@@ -30,11 +30,50 @@ class App extends React.Component {
     }
   }
 
+  loginHandler = userInfo => {
+    let options = {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+         accepts: "application/json"
+      },
+      body: JSON.stringify({user: userInfo})
+    }
+    fetch("http:localhost/3000/api/v1/login", options)
+    .then(res => res.json())
+    .then(data => {
+      localStorage.setItem("token", data.jwt)
+      this.setState({ user: data.user }, () => {
+        console.log(localStorage.getItem('token'))
+      })
+    })
+  }
+
+  logoutHandler = () => {
+    localStorage.removeItem("token")
+    this.props.history.push("./login")
+    this.setState({ user: null })
+  }
+
+  signupHandler = userInfo => {
+    let options = {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+         accepts: "application/json"
+      },
+      body: JSON.stringify({user: userInfo})
+    }
+    fetch("http:localhost/3000/api/v1/users", options)
+    .then(res => res.json())
+    .then(data => this.loginHandler({username: userInfo.username, password_digest: userInfo.password_digest}))
+  }
+
   render() {
     return (
       <div className="app">
         <Switch>
-          <Route path="/login" render={() => (<Login />)} />
+          <Route path="/login" render={routerProps => <LoginCOntainer {...routerProps} loginHandler={this.loginHandler} signupHandler={this.signupHandler} user={this.state.user} />} />
         </Switch>
       </div>
     )
