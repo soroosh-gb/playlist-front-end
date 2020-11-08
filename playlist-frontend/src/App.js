@@ -1,14 +1,18 @@
 import './App.css';
 import React from 'react' 
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
-import TracklistContainer from './Containers/TracklistContainer'
-import Login from './Components/Login'
-import Signup from'./Components/Signup'
+import { Route, Switch, withRouter } from 'react-router-dom'
+// import Login from './Components/Login'
+// import Signup from'./Components/Signup'
 import LoginCOntainer from './Containers/LoginContainer'
+import Logout from './Components/Logout'
+import NavBar from './Components/NavBar';
+import Playlists from './Components/Playlists'
+import Home from './Components/Home'
 
 class App extends React.Component {
   state = {
-    user: null
+    user: null,
+    api: []
   }
 
   componentDidMount() {
@@ -28,6 +32,15 @@ class App extends React.Component {
       console.log('no token')
       this.props.history.push("/login")
     }
+
+    // fetch("http://localhost:3000/api/v1/tracks/all")
+    // .then(resp => resp.json())
+    // .then((data) => {
+    //   // console.log(data)
+    //   this.setState({
+    //     api: data
+    //   })
+    // })
   }
 
   loginHandler = userInfo => {
@@ -72,8 +85,12 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
+        <NavBar user={this.state.user}/>
         <Switch>
           <Route path="/login" render={routerProps => <LoginCOntainer {...routerProps} loginHandler={this.loginHandler} signupHandler={this.signupHandler} user={this.state.user} />} />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/playlists" component={Playlists} />
+            <Route exact path="/logout" component={Logout} />
         </Switch>
       </div>
     )
@@ -82,4 +99,4 @@ class App extends React.Component {
 
 }
 
-export default App;
+export default withRouter(App);

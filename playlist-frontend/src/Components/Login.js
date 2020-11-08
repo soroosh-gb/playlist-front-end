@@ -4,7 +4,8 @@ import { Redirect } from 'react-router-dom'
 class Login extends React.Component {
     state = {
         username: '',
-        password_digest: ''
+        password_digest: '',
+        
     }
 
     changeHandler = e => {
@@ -15,7 +16,7 @@ class Login extends React.Component {
     
     submitHandler = e => {
         e.preventDefault();
-        this.props.longinHandler(this.state)
+        this.props.LoginHandler(this.state)
     }
 
     clickHandler = e => {
@@ -25,13 +26,13 @@ class Login extends React.Component {
     
     render() {
         return (
-           <Form onSubmit={this.submitHandler} className="login-form">
+           <form onSubmit={this.submitHandler} className="login-form">
                 <h3>Welcome Back!</h3> 
-                <UserInput type="text" name="username" Placeholder="Username" value={this.state.username} onChange={this.changeHandler}></UserInput>           
-                <UserInput type="password" name="password" Placeholder="Password" value={this.state.password_digest} onChange={this.changeHandler}></UserInput>           
-                <Button type="submit" value="Log In">Log In</Button>
+                <userinput type="text" name="username" Placeholder="Username" value={this.state.username} onChange={this.changeHandler}></userinput>           
+                <userinput type="password" name="password" Placeholder="Password" value={this.state.password_digest} onChange={this.changeHandler}></userinput>           
+                <button type="submit" value="Log In">Log In</button>
                 <p>Don't have an Account? <a onClick={this.clickHandler} href="/login/create">Create Account</a></p>
-           </Form>  
+           </form>  
         )
     }
 }
