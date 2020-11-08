@@ -8,10 +8,12 @@ import Logout from './Components/Logout'
 import NavBar from './Components/NavBar';
 import Playlists from './Components/Playlists'
 import Home from './Components/Home'
+import Tracks from './Components/Tracks'
 
 class App extends React.Component {
   state = {
-    user: null,
+    // user: null,
+    user: "",
     api: []
   }
 
@@ -33,14 +35,14 @@ class App extends React.Component {
       this.props.history.push("/login")
     }
 
-    // fetch("http://localhost:3000/api/v1/tracks/all")
-    // .then(resp => resp.json())
-    // .then((data) => {
-    //   // console.log(data)
-    //   this.setState({
-    //     api: data
-    //   })
-    // })
+    fetch("http://localhost:3000/api/v1/tracks/all")
+    .then(resp => resp.json())
+    .then((data) => {
+      // console.log(data)
+      this.setState({
+        api: data
+      })
+    })
   }
 
   loginHandler = userInfo => {
@@ -83,12 +85,13 @@ class App extends React.Component {
   }
 
   render() {
+    // console.log(this.state.api)
     return (
       <div className="app">
         <NavBar user={this.state.user}/>
         <Switch>
           <Route path="/login" render={routerProps => <LoginCOntainer {...routerProps} loginHandler={this.loginHandler} signupHandler={this.signupHandler} user={this.state.user} />} />
-            <Route exact path="/" component={Home} />
+    <Route exact path="/" render={() => <Home tracks={this.state.api} />}  />
             <Route exact path="/playlists" component={Playlists} />
             <Route exact path="/logout" component={Logout} />
         </Switch>

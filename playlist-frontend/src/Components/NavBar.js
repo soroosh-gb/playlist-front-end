@@ -5,7 +5,7 @@ class NavBar extends React.Component {
 
     render() {
         return (  
-            this.props.user ?
+            (this.props.user !== null) ?
             <div style={{ backgroundColor: 'black', borderBottom: '2px solid black', paddingTop: '15px', paddingLeft: '15px', paddingBottom: '15px', marginBottom: '12px' }}>
               <NavLink 
                 style={{ marginRight: '15px', color: 'white' }} 
