@@ -8,13 +8,14 @@ import Logout from './Components/Logout'
 import NavBar from './Components/NavBar';
 import Playlists from './Components/Playlists'
 import Home from './Components/Home'
-import Tracks from './Components/Tracks'
+
 
 class App extends React.Component {
   state = {
     // user: null,
     user: "",
-    api: []
+    favoriteTracks: [],
+    api: [],
   }
 
   componentDidMount() {
@@ -84,21 +85,30 @@ class App extends React.Component {
     .then(data => this.loginHandler({username: userInfo.username, password_digest: userInfo.password_digest}))
   }
 
+  addToFavoriteTracks = (newTrack) => {
+    let CopyOfFavoriteTracks = [...this.state.favoriteTracks, newTrack]
+    this.setState({
+      favoriteTracks: CopyOfFavoriteTracks
+    })
+  }
+    
+
   render() {
-    // console.log(this.state.api)
+    console.log(this.state.favoriteTracks)
     return (
       <div className="app">
         <NavBar user={this.state.user}/>
         <Switch>
           <Route path="/login" render={routerProps => <LoginCOntainer {...routerProps} loginHandler={this.loginHandler} signupHandler={this.signupHandler} user={this.state.user} />} />
-    <Route exact path="/" render={() => <Home tracks={this.state.api} />}  />
-            <Route exact path="/playlists" component={Playlists} />
+    <Route exact path="/" render={() => <Home tracks={this.state.api} addToFavoriteTracks={this.addToFavoriteTracks}/>}  />
+            <Route exact path="/playlists" render={() => <Playlists favoriteTracks={this.state.favoriteTracks} />} />
             <Route exact path="/logout" component={Logout} />
         </Switch>
       </div>
     )
   }
-    
+
+  
 
 }
 
