@@ -28,8 +28,8 @@ class Login extends React.Component {
         return (
            <form onSubmit={this.submitHandler} className="login-form">
                 <h3>Welcome Back!</h3> 
-                <userinput type="text" name="username" Placeholder="Username" value={this.state.username} onChange={this.changeHandler}></userinput>           
-                <userinput type="password" name="password" Placeholder="Password" value={this.state.password_digest} onChange={this.changeHandler}></userinput>           
+                <input type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.changeHandler}></input>           
+                <input type="password" name="password" placeholder="Password" value={this.state.password_digest} onChange={this.changeHandler}></input>           
                 <button type="submit" value="Log In">Log In</button>
                 <p>Don't have an Account? <a onClick={this.clickHandler} href="/login/create">Create Account</a></p>
            </form>  
