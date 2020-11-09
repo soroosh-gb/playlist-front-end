@@ -52,14 +52,13 @@ class App extends React.Component {
       },
       body: JSON.stringify({user: userInfo})
     }
-    fetch("http:localhost/3000/api/v1/login", options)
-    .then(res => res.json())
+    fetch("http://localhost:3000/api/v1/login", options)
+    .then(resp => resp.json())
     .then(data => {
       localStorage.setItem("token", data.jwt)
-      this.setState({ user: data.user }, () => {
-        console.log(localStorage.getItem('token'))
-      })
+      this.setState({ user: data.user }, () => this.props.history.push("/"))
     })
+    .catch(console.log)
   }
 
   logoutHandler = () => {
@@ -79,7 +78,7 @@ class App extends React.Component {
     }
     fetch("http:localhost/3000/api/v1/users", options)
     .then(res => res.json())
-    .then(data => this.loginHandler({username: userInfo.username, password_digest: userInfo.password_digest}))
+    .then(data => this.setState({user: data.user}, () => this.props.history.push("/")))
   }
 
   render() {
