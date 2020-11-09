@@ -3,7 +3,7 @@ import React from 'react'
 import { Route, Switch, withRouter } from 'react-router-dom'
 // import Login from './Components/Login'
 // import Signup from'./Components/Signup'
-import LoginCOntainer from './Containers/LoginContainer'
+import LoginContainer from './Containers/LoginContainer'
 import Logout from './Components/Logout'
 import NavBar from './Components/NavBar';
 import Playlists from './Components/Playlists'
@@ -87,7 +87,7 @@ class App extends React.Component {
       <div className="app">
         <NavBar user={this.state.user}/>
         <Switch>
-          <Route path="/login" render={routerProps => <LoginCOntainer {...routerProps} loginHandler={this.loginHandler} signupHandler={this.signupHandler} user={this.state.user} />} />
+          <Route path="/login" render={routerProps => <LoginContainer {...routerProps} loginHandler={this.loginHandler} signupHandler={this.signupHandler} user={this.state.user} />} />
             <Route exact path="/" component={Home} />
             <Route exact path="/playlists" component={Playlists} />
             <Route exact path="/logout" component={Logout} />
