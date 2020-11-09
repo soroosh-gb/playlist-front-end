@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom'
 class Signup extends React.Component {
     state = {
         username: '',
-        password_digest: ''
+        password: ''
     }
     
     changeHandler = e => {
@@ -20,11 +20,14 @@ class Signup extends React.Component {
     
     render() {
         return (
+            !this.props.user ?
            <form onSubmit={this.submitHandler}>
                <label>Username: <input name="username" type="text" placeholder="username" value={this.state.username} onChange={this.changeHandler}></input></label><br/>
-               <label>password: <input name="password_digest" type="text" placeholder="password" value={this.state.password_digest} onChange={this.changeHandler}></input></label><br/>
+               <label>password: <input name="password" type="text" placeholder="password" value={this.state.password} onChange={this.changeHandler}></input></label><br/>
                <button type="submit">Create an Account</button>
            </form>
+           :
+           <Redirect to="/home" />
         )
     }
 }

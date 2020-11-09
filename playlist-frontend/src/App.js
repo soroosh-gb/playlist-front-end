@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react' 
-import { Route, Switch, withRouter } from 'react-router-dom'
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 // import Login from './Components/Login'
 // import Signup from'./Components/Signup'
 import LoginContainer from './Containers/LoginContainer'
@@ -25,24 +25,23 @@ class App extends React.Component {
           Authorization: `Bearer ${token}`
         }
       }
-      fetch("http://localhost3000/api/v1/home", options)
-      .then(res => res.json())
-      .then(data => this.setState({user: data.user}))
-     
-      fetch("http://localhost:3000/api/v1/tracks/all")
+      fetch("http://localhost:3000/api/v1/home", options)
       .then(resp => resp.json())
-      .then((data) => {
-      // console.log(data)
-        this.setState({
-        api: data
-        })
-      })
+      .then(data => this.setState({user: data.user}))
+
+      // fetch("http://localhost:3000/api/v1/tracks/all")
+      // .then(resp => resp.json())
+      // .then((data) => {
+      // // console.log(data)
+      //   this.setState({
+      //   api: data
+      //   })
+      // })
     }
     else {
       console.log('no token')
       this.props.history.push("/login")
     }
-    
   }
 
   loginHandler = userInfo => {
@@ -54,14 +53,13 @@ class App extends React.Component {
       },
       body: JSON.stringify({user: userInfo})
     }
-    fetch("http:localhost/3000/api/v1/login", options)
-    .then(res => res.json())
+    fetch("http://localhost:3000/api/v1/login", options)
+    .then(resp => resp.json())
     .then(data => {
       localStorage.setItem("token", data.jwt)
-      this.setState({ user: data.user }, () => {
-        console.log(localStorage.getItem('token'))
-      })
+      this.setState({ user: data.user }, () => this.props.history.push("/"))
     })
+    .catch(console.log)
   }
 
   logoutHandler = () => {
@@ -81,8 +79,11 @@ class App extends React.Component {
     }
     fetch("http://localhost:3000/api/v1/users", options)
     .then(res => res.json())
-    // .then(data => this.loginHandler({username: userInfo.username, password_digest: userInfo.password_digest}))
-    .then(data => this.setState({ user: data.user}))
+    .then(data => {
+      localStorage.setItem("token", data.jwt)
+      this.setState({user: data.user}, () => this.props.history.push("/"))
+    })
+
   }
 
   render() {
@@ -93,7 +94,12 @@ class App extends React.Component {
         <NavBar user={this.state.user}/>
         <Switch>
             <Route path="/login" render={routerProps => <LoginContainer {...routerProps} loginHandler={this.loginHandler} signupHandler={this.signupHandler} user={this.state.user} />} />
-            <Route exact path="/" component={Home} />
+            <Route exact path="/home" render={routerProps =>
+              this.state.user ?
+              (<Home {...routerProps} user={this.state.user} tracks={this.state.api}/>)
+              :
+              null
+            } />
             <Route exact path="/playlists" component={Playlists} />
             <Route exact path="/logout" component={Logout} />
         </Switch>
