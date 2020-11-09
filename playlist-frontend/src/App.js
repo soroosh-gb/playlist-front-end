@@ -25,22 +25,22 @@ class App extends React.Component {
           Authorization: `Bearer ${token}`
         }
       }
-      fetch("http://localhost3000/api/v1/profile", options)
+      fetch("http://localhost3000/api/v1/home", options)
       .then(res => res.json())
       .then(data => this.setState({user: data.user}))
-    } else {
+      fetch("http://localhost:3000/api/v1/tracks/all")
+      .then(resp => resp.json())
+      .then((data) => {
+      // console.log(data)
+        this.setState({
+        api: data
+        })
+      })
+    }
+    else {
       console.log('no token')
       this.props.history.push("/login")
     }
-
-    // fetch("http://localhost:3000/api/v1/tracks/all")
-    // .then(resp => resp.json())
-    // .then((data) => {
-    //   // console.log(data)
-    //   this.setState({
-    //     api: data
-    //   })
-    // })
   }
 
   loginHandler = userInfo => {
