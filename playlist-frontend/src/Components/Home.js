@@ -4,7 +4,7 @@ import Tracks from './Tracks'
 class Home extends React.Component{
 
     renderTracks = () => {
-        this.props.tracks.map((el) => <Tracks key={el.id} track={el}/>)
+        return this.props.tracks.map((el) => <Tracks key={el.id} track={el}/>)
     }
     
     render(){

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
+import "../Style/LoginForm.css"
 
 class Login extends React.Component {
     state = {
@@ -27,13 +28,20 @@ class Login extends React.Component {
     render() {
         return (
             !this.props.user ?
+            <div class="container">
+            <div class="login">
+             <h1>Welcome Back!</h1>  
            <form onSubmit={this.submitHandler} className="login-form">
-                <h3>Welcome Back!</h3> 
-                <input type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.changeHandler}></input>           
-                <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.changeHandler}></input>           
-                <button type="submit">Log In</button>
-                <p>Don't have an Account? <a onClick={this.clickHandler} href="/login/create">Create Account</a></p>
+               <p><input type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.changeHandler}></input></p>
+               <p><input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.changeHandler}></input></p>         
+               <p class="submit"><input type="submit" name="login" value="Login"></input></p>
            </form>
+           </div>
+           <div class="no-account">
+                <p>Don't have an Account? </p> <a onClick={this.clickHandler} href="/login/create">Create Account</a>
+            </div>
+           </div>
+          
            :
            <Redirect to="/home" />  
         )

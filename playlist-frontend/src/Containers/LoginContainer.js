@@ -2,7 +2,7 @@ import React from 'react'
 import Login from '../Components/Login'
 import Signup from '../Components/Signup'
 import {Route, Switch, withRouter} from 'react-router-dom'
-import LoginStyle from '../Style/LoginStyle.css'
+
 
 class LoginContainer extends React.Component {
     render() {

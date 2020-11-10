@@ -1,5 +1,6 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
+import "../Style/SignupForm.css"
 
 class Signup extends React.Component {
     state = {
@@ -18,16 +19,35 @@ class Signup extends React.Component {
         this.props.signupHandler(this.state)
     }
     
+    // render() {
+    //     return (
+            
+    //        <form onSubmit={this.submitHandler}>
+    //            <label>Create a username: <input name="username" type="text" placeholder="username" value={this.state.username} onChange={this.changeHandler}></input></label>
+    //            <label>create a password: <input name="password" type="text" placeholder="password" value={this.state.password} onChange={this.changeHandler}></input></label>
+    //            <button type="submit">Create an Account</button>
+    //        </form>
+    //        :
+    //        <Redirect to="/home" />
+    //     )
+    // }
+
     render() {
         return (
             !this.props.user ?
-           <form onSubmit={this.submitHandler}>
-               <label>Username: <input name="username" type="text" placeholder="username" value={this.state.username} onChange={this.changeHandler}></input></label><br/>
-               <label>password: <input name="password" type="text" placeholder="password" value={this.state.password} onChange={this.changeHandler}></input></label><br/>
-               <button type="submit">Create an Account</button>
+            <div class="container">
+            <div class="signup">
+             <h1>Make a new Account!</h1>  
+           <form onSubmit={this.submitHandler} className="login-form">
+           <label>Create a username: <input name="username" type="text" placeholder="username" value={this.state.username} onChange={this.changeHandler}></input></label>
+               <label>create a password: <input name="password" type="text" placeholder="password" value={this.state.password} onChange={this.changeHandler}></input></label>       
+               <p class="submit"><input type="submit" name="signup" value="Signup"></input></p>
            </form>
+           </div>
+           </div>
+          
            :
-           <Redirect to="/home" />
+           <Redirect to="/home" />  
         )
     }
 }

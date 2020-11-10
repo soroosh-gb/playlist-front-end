@@ -9,34 +9,47 @@ import NavBar from './Components/NavBar';
 import Playlists from './Components/Playlists'
 import Home from './Components/Home'
 
+
 class App extends React.Component {
   state = {
     user: null,
     api: []
   }
 
-  componentDidMount() {
+  componentDidMount() { 
     const token = localStorage.getItem("token")
     if (token) {
-      console.log('got token')
-      const options = {
+      console.log('got token')  
+
+    fetch("http://localhost:3000/api/v1/home", {
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
-      fetch("http://localhost:3000/api/v1/home", options)
+        headers: { Authorization: `Bearer ${token}` },
+    } )
       .then(resp => resp.json())
       .then(data => this.setState({user: data.user}))
 
-      // fetch("http://localhost:3000/api/v1/tracks/all")
+    // if (token) {
+    //   console.log('got token')
+    //   const options = {
+    //     method: "GET",
+    //     headers: {
+    //       Authorization: `Bearer ${token}`
+    //     },
+    //   }
+      // fetch("http://localhost:3000/api/v1/home", options)
       // .then(resp => resp.json())
-      // .then((data) => {
-      // // console.log(data)
-      //   this.setState({
-      //   api: data
-      //   })
-      // })
+      // .then(data => this.setState({user: data.user}))
+      // .then(data => console.log(data))
+      // .catch(console.log)
+
+      fetch("http://localhost:3000/api/v1/tracks/all")
+      .then(resp => resp.json())
+      .then((data) => {
+      // console.log(data)
+        this.setState({
+        api: data
+        })
+      })
     }
     else {
       console.log('no token')
@@ -57,7 +70,7 @@ class App extends React.Component {
     .then(resp => resp.json())
     .then(data => {
       localStorage.setItem("token", data.jwt)
-      this.setState({ user: data.user }, () => this.props.history.push("/"))
+      this.setState({ user: data.user }, () => this.props.history.push("/home"))
     })
     .catch(console.log)
   }
@@ -81,25 +94,27 @@ class App extends React.Component {
     .then(res => res.json())
     .then(data => {
       localStorage.setItem("token", data.jwt)
-      this.setState({user: data.user}, () => this.props.history.push("/"))
+      this.setState({user: data.user}, () => this.props.history.push("/home"))
     })
 
   }
 
   render() {
-    console.log(this.state.user)
-    console.log(this.state.api)
+    // console.log(this.state.user)
+    // console.log(this.state.api)
     return (
       <div className="app">
-        <NavBar user={this.state.user}/>
+        <NavBar user={this.state.user} clickHandler={this.logoutHandler}/>
         <Switch>
             <Route path="/login" render={routerProps => <LoginContainer {...routerProps} loginHandler={this.loginHandler} signupHandler={this.signupHandler} user={this.state.user} />} />
-            <Route exact path="/home" render={routerProps =>
-              this.state.user ?
-              (<Home {...routerProps} user={this.state.user} tracks={this.state.api}/>)
-              :
-              null
-            } />
+            {/* <Route exact path="/home" render={routerProps =>
+            //   this.state.user ?
+            //   (<Home {...routerProps} user={this.state.user} tracks={this.state.api}/>)
+            //   :
+            //   null
+            // } /> */}
+            <Route exact path="/home" render={() => <Home tracks={this.state.api}/>} />
+            <Route exact path="/new" render={() => <New tracks={this.state.api}/>} />
             <Route exact path="/playlists" component={Playlists} />
             <Route exact path="/logout" component={Logout} />
         </Switch>
