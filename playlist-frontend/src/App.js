@@ -9,6 +9,7 @@ import NavBar from './Components/NavBar';
 import Playlists from './Components/Playlists'
 import Home from './Components/Home'
 import MyFavorites from './Components/MyFavorites';
+import SpotifyPlayer from 'react-spotify-player';
 
 
 
@@ -32,21 +33,7 @@ class App extends React.Component {
       .then(resp => resp.json())
       .then(data => this.setState({user: data.user}))
 
-    // if (token) {
-    //   console.log('got token')
-    //   const options = {
-    //     method: "GET",
-    //     headers: {
-    //       Authorization: `Bearer ${token}`
-    //     },
-    //   }
-
-      // fetch("http://localhost:3000/api/v1/home", options)
-      // .then(resp => resp.json())
-      // .then(data => this.setState({user: data.user}))
-      // .then(data => console.log(data))
-      // .catch(console.log)
-
+   
       fetch("http://localhost:3000/api/v1/tracks/all")
       .then(resp => resp.json())
       .then((data) => {
@@ -148,15 +135,30 @@ class App extends React.Component {
         favorites: filtered
       })
     })
-   
-    
+  }
+
+  creatNewPlaylist = (newplaylist) => {
+    fetch("http://localhost:3000/api/v1/tracklists" , {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+         accepts: "application/json"
+      }, 
+      body: JSON.stringify(newplaylist)
+    })
+    .then(resp => resp.json())
+    .then((data) => {console.log(data)})
   }
 
   render() {
-    // console.log(this.state.user)
+    console.log(this.state.user)
     // console.log(this.state.api)
+    
     return (
+      
       <div className="app">
+        
+       
         <NavBar user={this.state.user} clickHandler={this.logoutHandler}/>
         <Switch>
             <Route path="/login" render={routerProps => <LoginContainer {...routerProps} loginHandler={this.loginHandler} signupHandler={this.signupHandler} user={this.state.user} />} />
@@ -169,7 +171,7 @@ class App extends React.Component {
             } />
             {/* <Route exact path="/home" render={() => <Home tracks={this.state.api} addToFavorites={this.addToFavorites} user={this.props.user}/>} /> */}
             <Route exact path="/myfavorites" render={() => <MyFavorites tracks={this.state.favorites} removeFromFavorites={this.removeFromFavorites} user={this.state.user}/>} />
-            {/* <Route exact path="/playlists" component={Playlists} /> */}
+            <Route exact path="/playlists" render={() => <Playlists creatNewPlaylist={this.creatNewPlaylist}/>} />
             <Route exact path="/logout" component={Logout} />
         </Switch>
       </div>

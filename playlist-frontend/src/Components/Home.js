@@ -1,6 +1,7 @@
 import React from 'react'
 import Track from './Track'
 import { Redirect } from 'react-router-dom'
+import Spotify from './Spotify'
 
 
 class Home extends React.Component{
@@ -9,7 +10,7 @@ class Home extends React.Component{
 
     renderTracks = () => {
         let allTracks = this.props.tracks
-        return allTracks.map((el) => <Track key={el.id} track={el} addToFavorites={this.props.addToFavorites}/>)
+        return allTracks.map((el) => <Track key={el.index} track={el} addToFavorites={this.props.addToFavorites}/>)
     }
     
     render(){
@@ -17,9 +18,14 @@ class Home extends React.Component{
             return(
                 <div>
                     {this.props.user ?
+                    <Spotify />
+                    :
+                    <Redirect to="login"/>
+                    }
+                    {this.props.user ?
 
                         this.renderTracks()
-
+                        // && <Spotify />
                         :
                         <Redirect to="login"/>
                         }

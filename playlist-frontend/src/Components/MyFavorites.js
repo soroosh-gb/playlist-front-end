@@ -1,7 +1,7 @@
 import React from 'react'
 import FavoriteTrack from './FavoriteTrack'
 import { Redirect } from 'react-router-dom'
-
+import Spotify from './Spotify'
 
 class MyFavorites extends React.Component{
 
@@ -14,14 +14,16 @@ class MyFavorites extends React.Component{
         // console.log(this.props.favorites)
         return(
             <div>
+                {this.props.user ?
+                    <Spotify />
+                    :
+                    <Redirect to="login"/>
+                    }
 
                 {this.props.user ?
-                
-
                     this.renderFavorites()
-
-                :
-                <Redirect to="login"/>
+                    :
+                    <Redirect to="login"/>
                 }
                 
             </div>

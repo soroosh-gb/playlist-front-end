@@ -21,6 +21,14 @@ class NavBar extends React.Component {
                 My Favorites
               </NavLink>
 
+              <NavLink 
+                style={{ marginRight: '15px', color: 'white' }} 
+                to="/playlists"
+              >
+                My Playlists
+              </NavLink>
+
+              
 
               {this.props.user ? 
            
