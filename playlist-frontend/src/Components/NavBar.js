@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 class NavBar extends React.Component {
 
     render() {
-      console.log(this.props.user)
+      // console.log(this.props.user)
         return (  
             // this.props.user ?
             <div style={{ backgroundColor: 'black', borderBottom: '2px solid black', paddingTop: '15px', paddingLeft: '15px', paddingBottom: '15px', marginBottom: '12px' }}>
@@ -16,26 +16,14 @@ class NavBar extends React.Component {
               </NavLink>
               <NavLink 
                 style={{ marginRight: '15px', color: 'white' }} 
-                to="/playlists"
+                to="/myfavorites"
               >
                 My Favorites
               </NavLink>
 
-              <NavLink 
-                style={{ marginRight: '15px', color: 'white' }} 
-                to="/new"
-              >
-                New
-              </NavLink>
 
               {this.props.user ? 
-              <NavLink 
-              style={{ marginRight: '15px', color: 'white' }} 
-              to="/new"
-            >
-              New
-            </NavLink> 
-            &&
+           
               <h4 onClick={this.props.clickHandler} style={{ marginRight: '15px', color: 'white' }}
              >
              Log Out

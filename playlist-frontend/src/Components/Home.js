@@ -1,18 +1,29 @@
 import React from 'react'
-import Tracks from './Tracks'
+import Track from './Track'
+import { Redirect } from 'react-router-dom'
+
 
 class Home extends React.Component{
 
+   
+
     renderTracks = () => {
-        return this.props.tracks.map((el) => <Tracks key={el.id} track={el}/>)
+        let allTracks = this.props.tracks
+        return allTracks.map((el) => <Track key={el.id} track={el} addToFavorites={this.props.addToFavorites}/>)
     }
     
     render(){
-        console.log(this.props.user)
+        // console.log(this.props.user)
             return(
                 <div>
-                    <h1>Home</h1>
-                    {this.renderTracks()}
+                    {this.props.user ?
+
+                        this.renderTracks()
+
+                        :
+                        <Redirect to="login"/>
+                        }
+                        <h1>Home page</h1>
                 </div>
             )
         }
