@@ -12,7 +12,10 @@ class Track extends React.Component {
         this.setState(prevState => ({
             addedToFavorites: !prevState.addedToFavorites
           }))
-        
+    }
+
+    playHandler = () => {
+        this.props.playHandler(this.props.track.spotify_id)
     }
     render(){
         // console.log(this.state.names)
@@ -21,6 +24,7 @@ class Track extends React.Component {
                 <h1>{this.props.track.name}</h1>
                 <img src={this.props.track.image}/>
                 <button onClick={this.clickHandler}> {this.state.addedToFavorites ? "Already added" : "+ Add to my favorites"}</button>
+                <button onClick={this.playHandler}>Play</button>
             </div>
 
         )

@@ -6,11 +6,21 @@ import Spotify from './Spotify'
 
 class Home extends React.Component{
 
-   
+   state = {
+       spotifyId: ""
+   }
 
     renderTracks = () => {
         let allTracks = this.props.tracks
-        return allTracks.map((el) => <Track key={el.index} track={el} addToFavorites={this.props.addToFavorites}/>)
+        return allTracks.map((el) => <Track key={el.index} track={el} addToFavorites={this.props.addToFavorites} playHandler={this.setSpotifyId}/>)
+    // && <Spotify id={el.spotify_id} />
+    }
+    setSpotifyId = (spotifyId) => {
+        console.log("at home" ,spotifyId)
+        this.setState({
+            spotifyId: spotifyId
+        })
+        return spotifyId
     }
     
     render(){
@@ -18,7 +28,7 @@ class Home extends React.Component{
             return(
                 <div>
                     {this.props.user ?
-                    <Spotify />
+                    <Spotify trackId={this.state.spotifyId}/>
                     :
                     <Redirect to="login"/>
                     }
