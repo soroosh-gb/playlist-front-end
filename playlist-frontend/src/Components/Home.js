@@ -1,7 +1,7 @@
 import React from 'react'
 import Track from './Track'
 import { Redirect } from 'react-router-dom'
-import Spotify from './Spotify'
+
 
 
 class Home extends React.Component{
@@ -11,8 +11,9 @@ class Home extends React.Component{
    }
 
     renderTracks = () => {
-        let allTracks = this.props.tracks
-        return allTracks.map((el) => <Track key={el.index} track={el} addToFavorites={this.props.addToFavorites} playHandler={this.setSpotifyId}/>)
+        
+        let allTracks = this.props.tracks 
+        return allTracks.map((el) => <Track key={el.index} track={el} addToFavorites={this.props.addToFavorites} afterAddingToFavorites={this.props.afterAddingToFavorites}/>)
     // && <Spotify id={el.spotify_id} />
     }
     setSpotifyId = (spotifyId) => {
@@ -27,11 +28,6 @@ class Home extends React.Component{
         // console.log(this.props.user)
             return(
                 <div>
-                    {this.props.user ?
-                    <Spotify trackId={this.state.spotifyId}/>
-                    :
-                    <Redirect to="login"/>
-                    }
                     {this.props.user ?
 
                         this.renderTracks()

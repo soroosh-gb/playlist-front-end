@@ -112,7 +112,7 @@ class App extends React.Component {
     })
     .then(resp => resp.json())
     .then(track => {
-      let copyOfFavorite = [...this.state.favorites , track ]
+      let copyOfFavorite = [track, ...this.state.favorites]
       this.setState({favorites: copyOfFavorite})
     })
     
@@ -128,7 +128,7 @@ class App extends React.Component {
     })
     .then(resp => resp.json())
     .then(data => {
-      console.log(data)
+      // console.log(data)
       let favoritesCopy = [...this.state.favorites]
       let filtered = favoritesCopy.filter(el => el.id != data.id)
       this.setState({
@@ -150,8 +150,24 @@ class App extends React.Component {
     .then((data) => {console.log(data)})
   }
 
+  afterAddingToFavorites = (track) => {
+    // console.log(track.name)
+    let apiCopy = [...this.state.api]
+    let filtered = apiCopy.filter(el => el.name != track.name)
+    this.setState({
+      api: filtered
+    })
+  }
+
+  addBack = (track) => {
+    let apiCopy = [track, ...this.state.api]
+    this.setState({
+      api: apiCopy
+    })
+  }
+
   render() {
-    console.log(this.state.user)
+    // console.log(this.state.user)
     // console.log(this.state.api)
     
     return (
@@ -164,13 +180,13 @@ class App extends React.Component {
             <Route path="/login" render={routerProps => <LoginContainer {...routerProps} loginHandler={this.loginHandler} signupHandler={this.signupHandler} user={this.state.user} />} />
             <Route exact path="/home" render={routerProps =>
               this.state.user ?
-              (<Home {...routerProps} user={this.state.user} tracks={this.state.api} addToFavorites={this.addToFavorites}/>)
+              (<Home {...routerProps} user={this.state.user} tracks={this.state.api} addToFavorites={this.addToFavorites} favorites={this.state.favorites} afterAddingToFavorites={this.afterAddingToFavorites}/>)
               :
               // <Redirect to="login"/>
               null
             } />
             {/* <Route exact path="/home" render={() => <Home tracks={this.state.api} addToFavorites={this.addToFavorites} user={this.props.user}/>} /> */}
-            <Route exact path="/myfavorites" render={() => <MyFavorites tracks={this.state.favorites} removeFromFavorites={this.removeFromFavorites} user={this.state.user}/>} />
+            <Route exact path="/myfavorites" render={() => <MyFavorites tracks={this.state.favorites} removeFromFavorites={this.removeFromFavorites} user={this.state.user} addBack={this.addBack}/>} />
             <Route exact path="/playlists" render={() => <Playlists creatNewPlaylist={this.creatNewPlaylist}/>} />
             <Route exact path="/logout" component={Logout} />
         </Switch>
