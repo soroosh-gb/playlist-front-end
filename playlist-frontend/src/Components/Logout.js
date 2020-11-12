@@ -1,9 +1,19 @@
 import React from 'react'
+import {Redirect} from 'react-router-dom'
 
 class Logout extends React.Component {
 
+    logoutHandler = () => {
+        this.props.logoutHandler()
+    }
+    
     render() {
-        return <h1>Logout!</h1>
+        return (
+            <div>
+                {this.props.logoutHandler()}
+                <Redirect to="/login" />
+            </div>
+         )
     }
 }
 

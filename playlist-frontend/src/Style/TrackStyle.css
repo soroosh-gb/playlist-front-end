@@ -1,0 +1,26 @@
+.song-card {
+    margin: 50px auto;
+    width: 640px;
+}
+.fave-button {
+    background-color: #381D2A;   
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 18px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border: 2px solid #EDE6F2;
+    transition-duration: 0.4s;
+    
+}
+.fave-button:hover {
+    background-color:#92829c; 
+    color: white;
+  }
+/* .song-name {
+    font-family: 'Lucida Grande', Helvetica, sans-serif;
+    font: 100px;
+}   */

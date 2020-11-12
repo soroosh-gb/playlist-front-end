@@ -1,6 +1,8 @@
 import React from 'react'
 import FavoriteTrack from './FavoriteTrack'
 import { Redirect } from 'react-router-dom'
+import "../Style/Favorite.css"
+
 
 
 class MyFavorites extends React.Component{
@@ -13,7 +15,7 @@ class MyFavorites extends React.Component{
     render(){
         // console.log(this.props.favorites)
         return(
-            <div>
+            <div className="fave-page">
                 {this.props.user ?
                     this.renderFavorites()
                     :

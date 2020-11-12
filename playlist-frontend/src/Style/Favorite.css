@@ -1,0 +1,24 @@
+.fave-page {
+    background-color: #395256;
+}
+.fave-tracks {
+    margin: 50px auto;
+    width: 640px;
+}
+.track-btn {
+    background-color: #381D2A;   
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 18px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border: 2px solid #EDE6F2;
+    transition-duration: 0.4s;
+}
+.track-btn:hover {
+    background-color:#92829c; 
+    color: white;
+}

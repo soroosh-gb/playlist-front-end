@@ -39,8 +39,8 @@ class Signup extends React.Component {
             <div class="signup">
              <h1>Make a new Account!</h1>  
            <form onSubmit={this.submitHandler} className="login-form">
-           <label>Create a username: <input name="username" type="text" placeholder="username" value={this.state.username} onChange={this.changeHandler}></input></label>
-               <label>create a password: <input name="password" type="text" placeholder="password" value={this.state.password} onChange={this.changeHandler}></input></label>       
+            <label><h3>Create a username: <input name="username" type="text" placeholder="username" value={this.state.username} onChange={this.changeHandler}></input></h3></label>
+               <label><h3>create a password: <input name="password" type="text" placeholder="password" value={this.state.password} onChange={this.changeHandler}></input></h3></label>       
                <p class="submit"><input type="submit" name="signup" value="Signup"></input></p>
            </form>
            </div>

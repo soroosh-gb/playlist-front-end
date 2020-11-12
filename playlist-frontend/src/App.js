@@ -79,7 +79,7 @@ class App extends React.Component {
 
   logoutHandler = () => {
     localStorage.removeItem("token")
-    this.props.history.push("./login")
+    this.props.history.push("/login")
     this.setState({ user: null })
   }
 
@@ -188,7 +188,7 @@ class App extends React.Component {
             {/* <Route exact path="/home" render={() => <Home tracks={this.state.api} addToFavorites={this.addToFavorites} user={this.props.user}/>} /> */}
             <Route exact path="/myfavorites" render={() => <MyFavorites tracks={this.state.favorites} removeFromFavorites={this.removeFromFavorites} user={this.state.user} addBack={this.addBack}/>} />
             <Route exact path="/playlists" render={() => <Playlists creatNewPlaylist={this.creatNewPlaylist}/>} />
-            <Route exact path="/logout" component={Logout} />
+            <Route exact path="/logout" render={() => <Logout logoutHandler={this.logoutHandler}/>} />
         </Switch>
       </div>
     )

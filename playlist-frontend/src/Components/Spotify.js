@@ -9,7 +9,6 @@ class Spotify extends React.Component{
 
     render(){
         let id = `spotify:track:${this.props.trackId}`
-        // let id = `spotify:track:${this.props.id}`
         const size = {
             width: '100%',
             height: 200,

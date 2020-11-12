@@ -1,5 +1,6 @@
 import React from 'react'
 import Spotify from './Spotify'
+import "../Style/TrackStyle.css"
 
 class Track extends React.Component {
 
@@ -34,10 +35,10 @@ class Track extends React.Component {
     render(){
         
         return(
-            <div>
-                <h1>{this.props.track.name}</h1>
-                <img onClick={this.openPlayer} src={this.props.track.image} style={{cursor: "pointer"}}/>
-                <button onClick={this.clickHandler} style={{cursor: "pointer"}}>+ Add to my favorites</button>
+            <div className="song-card">
+                <h1 style={{fontFamily: 'Indie Flower', fontSize: "40px",}} >{this.props.track.name}</h1>
+                <img className="img" onClick={this.openPlayer} src={this.props.track.image} style={{cursor: "pointer"}}/>
+                <button className="fave-button" onClick={this.clickHandler} style={{cursor: "pointer"}}>+ Add to My Favorites</button>
                 {this.state.openPlayer ? 
                 <Spotify trackId={this.props.track.spotify_id}/> 
                 : null}

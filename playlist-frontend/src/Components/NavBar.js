@@ -6,47 +6,25 @@ class NavBar extends React.Component {
     render() {
       // console.log(this.props.user)
         return (  
-            // this.props.user ?
-            <div style={{ backgroundColor: 'black', borderBottom: '2px solid black', paddingTop: '15px', paddingLeft: '15px', paddingBottom: '15px', marginBottom: '12px' }}>
+            
+            <div style={{ backgroundColor: 'black', borderBottom: '3px solid black', paddingTop: '20px', paddingLeft: '20px', paddingBottom: '20px', marginBottom: '3px'}}>
+              
+  
               <NavLink 
                 style={{ marginRight: '15px', color: 'white' }} 
                 to="/home"
               >
                 Home
               </NavLink>
+              
               <NavLink 
                 style={{ marginRight: '15px', color: 'white' }} 
                 to="/myfavorites"
               >
                 My Favorites
               </NavLink>
-
-              <NavLink 
-                style={{ marginRight: '15px', color: 'white' }} 
-                to="/playlists"
-              >
-                My Playlists
-              </NavLink>
-
-              
-
-              {this.props.user ? 
            
-              <h4 onClick={this.props.clickHandler} style={{ marginRight: '15px', color: 'white' }}
-             >
-             Log Out
-             </h4>
-              
-              :
-                <NavLink 
-                 style={{ marginRight: '15px', color: 'white' }} 
-                  to="/login"
-                >
-                Log In
-                </NavLink>
-            }
-
-              {/* {this.props.user ? 
+               {this.props.user ? 
               <NavLink 
               style={{ marginRight: '15px', color: 'white' }} 
                to="/logout"
@@ -61,11 +39,16 @@ class NavBar extends React.Component {
                 >
                 Log In
                 </NavLink>
-            } */}
-
-              </div>
+            } 
+          </div>
+              
           );
     }
 }
 
 export default NavBar;
+
+//    <h4 onClick={this.props.clickHandler} style={{ marginRight: '15px', color: 'white' }}
+// >
+// Log Out
+// </h4>

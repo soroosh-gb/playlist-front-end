@@ -1,6 +1,7 @@
 import React from 'react'
 import Track from './Track'
 import { Redirect } from 'react-router-dom'
+import "../Style/HomeStyle.css"
 
 
 
@@ -27,7 +28,7 @@ class Home extends React.Component{
     render(){
         // console.log(this.props.user)
             return(
-                <div>
+                <div className="home-body">
                     {this.props.user ?
 
                         this.renderTracks()
@@ -35,7 +36,7 @@ class Home extends React.Component{
                         :
                         <Redirect to="login"/>
                         }
-                        <h1>Home page</h1>
+                        <h1>Loading...</h1>
                 </div>
             )
         }
